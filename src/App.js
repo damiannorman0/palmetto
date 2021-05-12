@@ -5,6 +5,13 @@ import logo from './logo.svg';
 import './App.css';
 import {getCurrent} from "./api";
 
+import cloudy from './images/cloudy.png';
+import rainy from './images/rainy.png';
+import sun from './images/sun.svg';
+import sunny from './images/sunny.png';
+import WeatherDisplay from "./components/WeatherDisplay";
+
+
 const StyledContainer = styled.div`
     border-radius: 5px;
     background-color: aliceblue;
@@ -18,18 +25,6 @@ const StyledContainer = styled.div`
     box-sizing: border-box;
     width: 33%;
     height: 33%;
-    margin: 10px;
-  `;
-
-const SyledWeather = styled.div`
-    border-radius: 5px;
-    background-color: dimgrey;
-    padding: 5px;
-    box-sizing: border-box;
-    min-width: 300px;
-    min-height: 300px;
-    height: 80%;
-    width: 80%;
     margin: 10px;
   `;
 
@@ -50,7 +45,13 @@ const StyledH1 = styled.h1`
 
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState({});
+  const [currentWeather, setCurrentWeather] = useState({
+    weather: [
+      {
+        description: '',
+      },
+    ],
+  });
   const [city, setCity] = useState('new york');
   const inputRef = React.createRef();
 
@@ -83,10 +84,27 @@ function App() {
     }
   }, [inputRef, city]);
 
-  const {
-    temperature,
-  } = currentWeather;
 
+  const { weather = [], main: {
+    temp_max = '',
+    temp_min = '',
+  } = {} } = currentWeather;
+  const [ weatherItem = {} ] = weather;
+  const {
+    description = '',
+    main,
+  }  = weatherItem;
+
+
+  const ref = {
+    Clouds: cloudy,
+    Sun: sun,
+    Sunny: sunny,
+    Rainy: rainy,
+    Clear: sun,
+  };
+
+  const weatherImg = ref[main];
   return (
     <div className="App">
       <header className="App-header">
@@ -95,8 +113,12 @@ function App() {
       <main>
         <StyledContainer>
           <StyledH1>Palmetto Weather</StyledH1>
-            <SyledWeather />
-            <StyledInput ref={inputRef} id={'city'} name={city} onChange={onChange} placeholder={'Enter your city'}/>
+          <WeatherDisplay
+            weatherImg={weatherImg}
+            description={description}
+            temp_min={temp_min}
+            temp_max={temp_max} />
+          <StyledInput ref={inputRef} id={'city'} name={city} onChange={onChange} placeholder={'Enter your city'}/>
         </StyledContainer>
       </main>
     </div>
