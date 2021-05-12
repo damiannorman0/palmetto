@@ -96,6 +96,7 @@ function App() {
   }  = weatherItem;
 
 
+  //TODO - expand on this with other images and conditions...
   const ref = {
     Clouds: cloudy,
     Sun: sun,
