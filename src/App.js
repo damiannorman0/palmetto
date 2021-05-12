@@ -96,7 +96,7 @@ function App() {
   }  = weatherItem;
 
 
-  //TODO - expand on this with other images and conditions...
+  //TODO - expand on this with other images and conditions...also refactor to a util file
   const ref = {
     Clouds: cloudy,
     Sun: sun,
@@ -117,8 +117,8 @@ function App() {
           <WeatherDisplay
             weatherImg={weatherImg}
             description={description}
-            temp_min={temp_min}
-            temp_max={temp_max} />
+            temp_min={`${temp_min}F`}
+            temp_max={`${temp_max}F`} />
           <StyledInput ref={inputRef} id={'city'} name={city} onChange={onChange} placeholder={'Enter your city'}/>
         </StyledContainer>
       </main>

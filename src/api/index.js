@@ -1,7 +1,7 @@
 const ref = {};
 
 const apiKey = '1adf77b0e0fe616d9cde0118729bac1d';
-const getCurrent = async(city = '') => {
+const getCurrent = async(city = '', units = 'imperial') => {
   if (city.length < '5') {
     return {};
   }
@@ -11,7 +11,7 @@ const getCurrent = async(city = '') => {
   }
 
   try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
     const result = await fetch(url);
     const json = await result.json();
     return json;
