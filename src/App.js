@@ -72,7 +72,7 @@ function App() {
       } catch (err) {
         console.error(err);
       }
-    }
+    };
 
     get();
   }, [city]);
