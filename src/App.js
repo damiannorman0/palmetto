@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components/macro';
+import {debounce} from 'debounce';
+
 
 import logo from './logo.svg';
 import './App.css';
@@ -54,6 +56,11 @@ function App() {
   });
   const [city, setCity] = useState('new york');
   const inputRef = React.createRef();
+  const debounceRate = 100;
+
+  const update = (city) => {
+    setCity(city);
+  };
 
   const onChange = (e = {}) => {
     const {
@@ -61,7 +68,10 @@ function App() {
         value: city,
       } = {},
     } = e;
-    setCity(city);
+
+
+    const debounced = debounce(update, debounceRate);
+    debounced(city);
   };
 
   useEffect(() => {
