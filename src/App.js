@@ -71,7 +71,7 @@ function App() {
 
 
     const debounced = debounce(update, debounceRate);
-    debounced(city);
+    debounced(encodeURIComponent(city));
   };
 
   useEffect(() => {
@@ -127,8 +127,8 @@ function App() {
           <WeatherDisplay
             weatherImg={weatherImg}
             description={description}
-            temp_min={`${temp_min}F`}
-            temp_max={`${temp_max}F`} />
+            temp_min={temp_min && `${temp_min}F`}
+            temp_max={temp_max && `${temp_max}F`} />
           <StyledInput ref={inputRef} id={'city'} name={city} onChange={onChange} placeholder={'Enter your city'}/>
         </StyledContainer>
       </main>
